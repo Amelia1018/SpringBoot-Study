@@ -1,9 +1,12 @@
 package com.hxmeet.demospringboot.customer;
 
+import com.hxmeet.demospringboot.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,23 +25,33 @@ import java.util.List;
 反过来，也可以编写使用 @Component 的专用注解。*/
 @Service
 public class CustomerService {
-    private static CustomerRebuy CustomerRebuy ;
-/*@Qualifier注解是用来解决特定类型的bean存在多个候选者时，
-如何选择正确的bean进行注入的问题。这个注解通常与@Autowired注解一起使用
-@Autowired默认按类型进行自动装配，如果有多个相同类型的bean，则需要@Qualifier来指定具体的bean。*/
 
+    private final CustomerRepository customerRebuy ;
+    private final CustomerRepository customerRepository;
 
+    /*@Qualifier注解是用来解决特定类型的bean存在多个候选者时，
+    如何选择正确的bean进行注入的问题。这个注解通常与@Autowired注解一起使用
+    @Autowired默认按类型进行自动装配，如果有多个相同类型的bean，则需要@Qualifier来指定具体的bean。*/
     /*public  CustomerService(@Qualifier("fake")CustomerRebuy customerRebuy){
 
         this.CustomerRebuy= customerRebuy;
     }*/
     @Autowired
-    public  CustomerService(CustomerRebuy customerRebuy){
+    public  CustomerService(CustomerRepository customerRebuy, CustomerRepository customerRepository){
 
-        this.CustomerRebuy= customerRebuy;
+        this.customerRebuy= customerRebuy;
+        this.customerRepository = customerRepository;
     }
-    static List<Customer>getCustomer() {
-        return CustomerRebuy.getCustomers();
+
+    List<Customer> getCustomers() {
+        return customerRebuy.findAll();
+    }
+
+    Customer getCustomer(Long id) {
+
+        return customerRepository.findById((long) Math.toIntExact(id))
+                .orElseThrow(()->new NotFoundException("Customer with id"+id+" not found"));
+
     }
 
 

@@ -10,7 +10,7 @@ public class CustomerConfiguration {
     @Value("${app.useFakeCustomerRebuy:false}")
     private Boolean useFakeCustomerRebuy;
     @Bean
-    /*意味着实例化，里面任何代码都会被执行*/
+        /*意味着实例化，里面任何代码都会被执行*/
     CommandLineRunner commandLineRunner()
     {
         return args -> {
@@ -21,6 +21,6 @@ public class CustomerConfiguration {
     @Bean
     CustomerRebuy customerRebuy() {
         System.out.println("CustomerRebuy = "+ useFakeCustomerRebuy );
-        return useFakeCustomerRebuy ? new CustomerFakeRepository() : new CustomerRepository();
+        return  new CustomerFakeRepository() ;
     }
 }

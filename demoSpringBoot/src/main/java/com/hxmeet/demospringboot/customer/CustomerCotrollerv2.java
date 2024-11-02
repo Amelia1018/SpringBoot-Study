@@ -25,12 +25,12 @@ public class CustomerCotrollerv2 {
     }
 
 
-    @GetMapping
+ /*   @GetMapping
     List<Customer> getCustomers() {
         return  customerService.getCustomers();
     }
-
-   @GetMapping(path="{customerId}")
+*/
+    @GetMapping(path="{customerId}")
     Customer getCustomer(@PathVariable ( "customerId")Long id) {
 
         return (Customer) customerService.getCustomer(id);
@@ -40,7 +40,7 @@ public class CustomerCotrollerv2 {
                 .findFirst()
                 .orElseThrow(()->new RuntimeException("Customer not found"));*/
     }
-//自定义抛出的异常
+    //自定义抛出的异常
     @GetMapping(path="{customerId}/exception")
     Customer getCustomerException(@PathVariable ( "customerId")Long id) {
         throw new ApiRequestException("ApiRequestException for customer"+id);
@@ -49,7 +49,7 @@ public class CustomerCotrollerv2 {
 
 
     @PostMapping
-    /*@Validated 表示一定要有效*/
+        /*@Validated 表示一定要有效*/
     void createNewCustomer(@Valid  @RequestBody Customer customer) {
         System.out.println("POST REQUEST...");
         System.out.println(customer);

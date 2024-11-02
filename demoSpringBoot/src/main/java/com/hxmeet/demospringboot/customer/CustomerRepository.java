@@ -1,6 +1,7 @@
 package com.hxmeet.demospringboot.customer;
 
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
@@ -18,13 +19,7 @@ import java.util.*;
 interface 关键字用于声明仅包含抽象方法的特殊类型的类。
 要访问接口方法，接口必须由另一个具有implements关键字（而不是 extends）的类"实现"（类似于继承）。
 接口方法的主体由"implement"类提供。*/
-public class CustomerRepository implements  CustomerRebuy{
-    @Override
-    public List<Customer> getCustomers() {
-        /*连接真正的数据库*/
-        return Collections.singletonList(
+public interface CustomerRepository extends JpaRepository<Customer,Long> {
 
-                new Customer(2, "to do implement real db")
-        );
-    }
+
 }
