@@ -5,5 +5,6 @@ public class Main {
         System.out.println("Hello world!");
         System.out.println("SECOND");
         System.out.println("推送github");
+        System.out.println("拉取github code");
     }
 }
