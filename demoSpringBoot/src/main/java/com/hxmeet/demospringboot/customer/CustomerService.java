@@ -1,6 +1,8 @@
 package com.hxmeet.demospringboot.customer;
 
 import com.hxmeet.demospringboot.exception.NotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
@@ -25,7 +27,7 @@ import java.util.List;
 反过来，也可以编写使用 @Component 的专用注解。*/
 @Service
 public class CustomerService {
-
+    private final static Logger LOGGER = LoggerFactory.getLogger(CustomerService.class);
     private final CustomerRepository customerRebuy ;
     private final CustomerRepository customerRepository;
 
@@ -44,13 +46,18 @@ public class CustomerService {
     }
 
     List<Customer> getCustomers() {
+        LOGGER.info("getCustomers was called");
         return customerRebuy.findAll();
     }
 
     Customer getCustomer(Long id) {
 
         return customerRepository.findById((long) Math.toIntExact(id))
-                .orElseThrow(()->new NotFoundException("Customer with id"+id+" not found"));
+                .orElseThrow(()-> {
+                    NotFoundException notFoundException = new NotFoundException("Customer with id" + id + " not found");
+                    LOGGER.error("error in getting customer{}",id,notFoundException);
+                    return  notFoundException;
+                });
 
     }
 
