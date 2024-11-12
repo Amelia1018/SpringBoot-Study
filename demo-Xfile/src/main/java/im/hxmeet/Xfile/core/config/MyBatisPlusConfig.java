@@ -5,8 +5,8 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
-import lombok.Value;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -29,11 +29,12 @@ public class MyBatisPlusConfig {
     private DataSource dataSource;
 
     //注入配置文件中 spring.datasource.driver-class-name 的值，获取数据库驱动类的名称（例如 SQLite 的驱动类是 org.sqlite.JDBC）。
-    @Value( "org.sqlite.JDBC")
+    @Value("${spring.datasource.driver-class-name}")
     private String datasourceDriveClassName;
 
     //注入配置文件中 spring.datasource.url 的值，获取数据库连接的 URL。
-    @Value("${spring.datasource.url}")
+
+    @org.springframework.beans.factory.annotation.Value("${spring.datasource.url}")
     private String datasourceUrl;
 
     /**
