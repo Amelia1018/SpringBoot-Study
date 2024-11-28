@@ -54,7 +54,7 @@ public class ProxyDownloadUrlUtils {
         return aes.encryptHex(content);
     }
 
-
+//验证给定签名是否有效，包括检查存储 ID、路径和是否过期。
     public static boolean validSignatureExpired(Integer expectedStorageId, String expectedPathAndName, String signature) {
         if (systemConfigService == null) {
             systemConfigService = SpringUtil.getBean(SystemConfigService.class);

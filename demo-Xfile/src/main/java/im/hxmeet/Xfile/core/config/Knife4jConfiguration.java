@@ -26,6 +26,7 @@ import java.util.List;
 public class Knife4jConfiguration {
 
     private final OpenApiExtensionResolver openApiExtensionResolver;
+
     @Autowired
     public Knife4jConfiguration(OpenApiExtensionResolver openApiExtensionResolver) {
         this.openApiExtensionResolver = openApiExtensionResolver;

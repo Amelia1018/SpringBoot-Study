@@ -50,7 +50,7 @@ public class JacksonEnumDeserializer extends JsonDeserializer<Enum<?>> implement
         //读取 JSON 中的文本值 text。
         String text = jsonParser.getText();
         //遍历枚举常量，使用 StringToEnumConverterFactory 中的方法转换字符串值，判断是否与 text 相匹配。如果找到匹配的枚举值，则返回该枚举对象。
-        Method[] method = StringToEnumConverterFactory.getMethod(clazz);
+        Method[] method = new Method[]{StringToEnumConverterFactory.getMethod(clazz)};
         Enum<?>[] enumConstants = (Enum<?>[]) enumType.getEnumConstants();
 
         for (Enum<?> e : enumConstants) {

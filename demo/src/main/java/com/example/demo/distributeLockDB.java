@@ -6,6 +6,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import static com.example.demo.distributeLockCache.Redis_Timeout;
+
 /**
  * @description 简单的基于数据库的分布式锁的示例
  * @date 2024/11/6  23:09
@@ -43,7 +45,7 @@ public class  distributeLockDB{
 
     }
 
-    public static void releaseLock(String lockname) {
+    public static void releaseLock(String lockname, int redis_Timeout) {
         try(Connection connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD)){
             PreparedStatement stmt = connection.prepareStatement("DELETE FROM `LOCKS` WHERE `name` = ?");
             stmt.setString(1, lockname);
@@ -66,7 +68,7 @@ public class  distributeLockDB{
                 //线程中断
                 Thread.currentThread().interrupt();
             }finally{
-                releaseLock(lockname);
+                releaseLock(lockname, Redis_Timeout);
             }
         }else{
             System.out.println("失败获取锁...");
