@@ -4,6 +4,7 @@ package im.hxmeet.Xfile.module.filter.controller;
 import com.github.xiaoymin.knife4j.annotations.ApiOperationSupport;
 import com.github.xiaoymin.knife4j.annotations.ApiSort;
 import im.hxmeet.Xfile.core.util.AjaxJson;
+import im.hxmeet.Xfile.module.filter.service.FilterConfigService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
