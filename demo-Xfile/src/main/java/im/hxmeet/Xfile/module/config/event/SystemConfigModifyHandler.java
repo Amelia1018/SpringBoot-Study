@@ -1,5 +1,6 @@
 package im.hxmeet.Xfile.module.config.event;
 
+import im.hxmeet.Xfile.module.config.model.entity.SystemConfig;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
